@@ -17,10 +17,19 @@ html {
 }
 
 html {
-  position: relative;
+
   min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+
 }

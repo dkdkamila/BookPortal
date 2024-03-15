@@ -10,80 +10,95 @@
 
 @if (!string.IsNullOrEmpty(successMessage))
 {
-    <div class="alert alert-success" role="alert">
-    @successMessage
-</div>
+    <div class="alert alert-success" role="alert">@successMessage</div>
 }
 
 @if (!string.IsNullOrEmpty(errorMessage))
 {
-    <div class="alert alert-danger" role="alert">
-    @errorMessage
+    <div class="alert alert-danger" role="alert">@errorMessage</div>
+}
+
+<h2>Välkommen, @User.Identity!.Name!</h2>
+
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Dina recensioner
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                @if (Model.Any())
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Bok</th>
+                                <th>Recension</th>
+                                <th>Åtgärder</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var review in Model)
+                            {
+                                <tr>
+                                    <td>@review.Book?.Title</td>
+                                    <td>@review.Text</td>
+                                    <td>
+                                        <a href="/Home/EditReview/@review.Id" class="btn btn-primary">Redigera</a> |
+                                        <form asp-action="DeleteReview" asp-route-reviewId="@review.Id" method="post" class="d-inline">
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Är du säker på att du vill ta bort denna recension?');">Ta bort</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>Inga recensioner hittades.</p>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Lägg till en ny bok
+            </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <!-- Formuläret för att lägga till en ny bok här -->
+                <form asp-action="AddBook" method="post">
+                    <div class="form-group">
+                        <label for="title">Titel:</label>
+                        <input type="text" class="form-control" id="title" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="author">Författare:</label>
+                        <input type="text" class="form-control" id="author" name="author" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="genre">Genre:</label>
+                        <input type="text" class="form-control" id="genre" name="genre">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Beskrivning:</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary mt-3">Lägg till boken</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-}
 
-
-<h2>Welcome, @User.Identity!.Name!</h2>
-
-<h3>Dina recensioner:</h3>
-@if (Model.Any())
-{
-    <table class="table">
-    <thead>
-        <tr>
-            <th>Book</th>
-            <th>Review</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var review in Model)
-            {
-                <tr>
-                    <td>@review.Book?.Title</td>
-                    <td>@review.Text</td>
-                    <td>
-    <a href="/Home/EditReview/@review.Id" class="btn btn-primary">Redigera</a> |
-   <form asp-action="DeleteReview" asp-route-reviewId="@review.Id" method="post" class="d-inline">
-    <button type="submit" class="btn btn-danger" onclick="return confirm('Är du säker på att du vill ta bort denna recension?');">Ta bort</button>
-</form>
-
-</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>Inga recensioner hittades.</p>
-}
-
-<h3>Add New Book:</h3>
-<form asp-action="AddBook" method="post">
-    <div class="form-group">
-        <label for="title">Titel:</label>
-        <input type="text" class="form-control" id="title" name="title" required>
-    </div>
-    <div class="form-group">
-        <label for="author">Författare:</label>
-        <input type="text" class="form-control" id="author" name="author" required>
-    </div>
-    <div class="form-group">
-        <label for="genre">Genre:</label>
-        <input type="text" class="form-control" id="genre" name="genre">
-    </div>
-    <div class="form-group">
-        <label for="description">Beskrivning:</label>
-        <textarea class="form-control" id="description" name="description"></textarea>
-    </div>
-    <br>
-    <button type="submit" class="btn btn-primary">Lägg till boken</button>
-</form>
-<br>
-<br>
-<div class="d-flex justify-content-end">
-    <form asp-action="Logout" method="post" class="form-inline">
+<div class="d-flex justify-content-end mt-4">
+    <form asp-action="Logout" method="post">
         <button type="submit" class="btn btn-warning">Logga ut</button>
     </form>
 </div>

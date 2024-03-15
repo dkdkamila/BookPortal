@@ -7,10 +7,10 @@
     <title>@ViewData["Title"] - BookPortal</title>
     <!-- <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> !-->
     <link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/BookPortal.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 
-<body class="d-flex flex-column vh-100">
+<body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -24,17 +24,18 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home"
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home"
                                 asp-action="Index">Startsidan</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LoggedIn">Mina
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="LoggedIn">Mina
                                 sidor</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <img src="~/images/kevin.jpg" class="header-img" alt="Header Image">
     </header>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -42,18 +43,21 @@
             <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
         </ol>
     </nav>
-    <br>
+
     <div class="container">
-        <main role="main" class="pb-3 shadow rounded p-3 mb-5 bg-body flex-shrink-0">
+        <main role="main" class="pb-3 shadow rounded p-3 mb-5 bg-body">
             @RenderBody()
         </main>
     </div>
     <br>
-    <footer class="mt-auto border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - BookPortal - Dominika Berg
-        </div>
-    </footer>
+    <div>
+        <footer class=" border-top footer text-muted">
+            <div class="container">
+                &copy; 2024 - BookPortal - Dominika Berg
+            </div>
+        </footer>
+    </div>
+
 
     <script src="~/lib/popper.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

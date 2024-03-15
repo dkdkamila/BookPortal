@@ -10,17 +10,19 @@
     <form asp-action="Search" method="get">
         <div class="form-group">
             <input type="text" class="form-control" name="searchString" placeholder="Sök efter böcker">
+            <br>
             <button type="submit" class="btn btn-primary">Sök</button>
         </div>
     </form>
 </div>
-
-<table class="table">
-    <thead>
+<br>
+<h2>Alla böcker:</h2>
+<table class="table table-responsive-sm table-hover">
+    <thead class="table-primary">
         <tr>
             <th>Titel</th>
             <th>Författare</th>
-            <th></th> <!-- Lägg till en tom kolumn för knappen "Läs mer" -->
+            <th></th>
         </tr>
     </thead>
     <tbody>
