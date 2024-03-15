@@ -1,0 +1,38 @@
+@model IEnumerable<Book>
+
+@{
+    ViewData["Title"] = "Bläddra bland böcker";
+}
+
+<h2>Bläddra bland böcker</h2>
+
+<div>
+    <form asp-action="Search" method="get">
+        <div class="form-group">
+            <input type="text" class="form-control" name="searchString" placeholder="Sök efter böcker">
+            <button type="submit" class="btn btn-primary">Sök</button>
+        </div>
+    </form>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Titel</th>
+            <th>Författare</th>
+            <th></th> <!-- Lägg till en tom kolumn för knappen "Läs mer" -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@book.Id" class="btn btn-info">Läs mer</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

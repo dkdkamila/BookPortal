@@ -1,0 +1,74 @@
+@model BookDetailsViewModel
+
+@{
+    ViewData["Title"] = "Detaljerad vy för bok";
+}
+
+<h2>@Model.Book!.Title</h2>
+<p><strong>Författare:</strong> @Model.Book.Author</p>
+<p><strong>Genre:</strong> @Model.Book.Genre</p>
+<p><strong>Beskrivning:</strong> @Model.Book.Description</p>
+
+<h3>Recensioner</h3>
+@if (Model.Reviews!.Any())
+{
+    <ul>
+    @foreach (var review in Model.Reviews!)
+        {
+            <li>
+                <strong>@review.User?.UserName:</strong> @review.Text
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>Inga recensioner för denna bok.</p>
+}
+
+<h3>Betyg</h3>
+@if (Model.Ratings!.Any())
+{
+    <ul>
+    @foreach (var rating in Model.Ratings!)
+        {
+            <li>
+                <strong>@rating.User?.UserName:</strong> @rating.Value
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>Inga betyg för denna bok.</p>
+}
+
+<!-- Formulär för inloggade användare -->
+@if (User.Identity!.IsAuthenticated)
+{
+    <h4>Lägg till en recension</h4>
+    <form asp-action="AddReview" method="post">
+    <input type="hidden" name="bookId" value="@Model.Book.Id" />
+    <div class="form-group">
+        <label for="reviewText">Din recension:</label>
+        <textarea name="reviewText" id="reviewText" class="form-control" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Skicka recension</button>
+</form>
+
+    <h4>Lämna ett betyg</h4>
+    <form asp-action="AddRating" method="post">
+    <input type="hidden" name="bookId" value="@Model.Book.Id" />
+    <div class="form-group">
+        <label for="ratingValue">Ditt betyg (1-5):</label>
+        <select name="ratingValue" id="ratingValue" class="form-control" required>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Skicka betyg</button>
+</form>
+}

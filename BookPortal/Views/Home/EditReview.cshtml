@@ -1,0 +1,16 @@
+@model Review
+
+@{
+    ViewData["Title"] = "Redigera recension";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="UpdateReview" method="post">
+    <input type="hidden" name="reviewId" value="@Model.Id" />
+    <div class="form-group">
+        <label for="updatedReviewText">Recension:</label>
+        <textarea class="form-control" id="updatedReviewText" name="updatedReviewText" required>@Model.Text</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Spara ändringar</button>
+</form>

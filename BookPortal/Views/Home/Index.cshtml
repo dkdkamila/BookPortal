@@ -1,8 +1,29 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Startsidan";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h2>Välkommen!</h2>
+
+<div class="card-deck">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Registrera konto</h5>
+            <p class="card-text">Skapa ett nytt konto för att få tillgång till fler funktioner.</p>
+            <a href="/Home/Register" class="btn btn-primary">Registrera konto</a>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Logga in</h5>
+            <p class="card-text">Logga in med ditt befintliga konto.</p>
+            <a href="/Home/Login" class="btn btn-primary">Logga in</a>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Bläddra bland böcker</h5>
+            <p class="card-text">Utforska vårt utbud av böcker.</p>
+            <a href="/Home/AllBooks" class="btn btn-primary">Bläddra bland böcker</a>
+        </div>
+    </div>
 </div>

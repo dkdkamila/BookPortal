@@ -160,8 +160,8 @@ namespace BookPortal.Migrations
                 name: "Books",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(nullable: false)
+            .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "nvarchar(256)", nullable: false),
                     Author = table.Column<string>(type: "nvarchar(256)", nullable: false),
                     Genre = table.Column<string>(type: "nvarchar(256)", nullable: true),

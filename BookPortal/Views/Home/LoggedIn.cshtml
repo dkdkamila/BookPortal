@@ -1,0 +1,89 @@
+@model IEnumerable<Review>
+
+@{
+    ViewData["Title"] = "LoggedIn";
+}
+@{
+    var successMessage = TempData["Message"] as string;
+    var errorMessage = TempData["ErrorMessage"] as string;
+}
+
+@if (!string.IsNullOrEmpty(successMessage))
+{
+    <div class="alert alert-success" role="alert">
+    @successMessage
+</div>
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger" role="alert">
+    @errorMessage
+</div>
+}
+
+
+<h2>Welcome, @User.Identity!.Name!</h2>
+
+<h3>Dina recensioner:</h3>
+@if (Model.Any())
+{
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Book</th>
+            <th>Review</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var review in Model)
+            {
+                <tr>
+                    <td>@review.Book?.Title</td>
+                    <td>@review.Text</td>
+                    <td>
+    <a href="/Home/EditReview/@review.Id" class="btn btn-primary">Redigera</a> |
+   <form asp-action="DeleteReview" asp-route-reviewId="@review.Id" method="post" class="d-inline">
+    <button type="submit" class="btn btn-danger" onclick="return confirm('Är du säker på att du vill ta bort denna recension?');">Ta bort</button>
+</form>
+
+</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Inga recensioner hittades.</p>
+}
+
+<h3>Add New Book:</h3>
+<form asp-action="AddBook" method="post">
+    <div class="form-group">
+        <label for="title">Titel:</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+    <div class="form-group">
+        <label for="author">Författare:</label>
+        <input type="text" class="form-control" id="author" name="author" required>
+    </div>
+    <div class="form-group">
+        <label for="genre">Genre:</label>
+        <input type="text" class="form-control" id="genre" name="genre">
+    </div>
+    <div class="form-group">
+        <label for="description">Beskrivning:</label>
+        <textarea class="form-control" id="description" name="description"></textarea>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Lägg till boken</button>
+</form>
+<br>
+<br>
+<div class="d-flex justify-content-end">
+    <form asp-action="Logout" method="post" class="form-inline">
+        <button type="submit" class="btn btn-warning">Logga ut</button>
+    </form>
+</div>
