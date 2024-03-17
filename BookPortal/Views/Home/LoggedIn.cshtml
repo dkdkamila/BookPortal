@@ -17,7 +17,7 @@
 {
     <div class="alert alert-danger" role="alert">@errorMessage</div>
 }
-
+@if (User.Identity!.IsAuthenticated){
 <h2>Välkommen, @User.Identity!.Name!</h2>
 
 <div class="accordion" id="accordionExample">
@@ -102,3 +102,9 @@
         <button type="submit" class="btn btn-warning">Logga ut</button>
     </form>
 </div>
+}
+else{
+    <!-- Om man inte är inloggad visas detta -->
+    <p>Du måste vara inloggad för att kunna skapa, redigera eller ta bort böcker. Klicka på <a href="/Home/Login" /> för att logga in.</p>
+    
+}

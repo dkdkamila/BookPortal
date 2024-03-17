@@ -100,7 +100,7 @@ public class HomeController : Controller
     }
 
 
-    [HttpPost]
+
     [HttpPost]
     public async Task<IActionResult> Login(string InputEmail, string InputPassword, bool RememberMe)
     {
@@ -140,7 +140,7 @@ public class HomeController : Controller
         {
             ViewBag.SuccessMessage = "Ditt konto har skapats framgångsrikt!";
             await _signInManager.SignInAsync(user, isPersistent: false);
-            return RedirectToAction("Login"); // Eller annan action som visar ett framgångsmeddelande
+            return RedirectToAction("Login");
         }
 
         foreach (var error in result.Errors)
